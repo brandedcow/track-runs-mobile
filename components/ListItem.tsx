@@ -1,16 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, ViewStyle } from 'react-native';
 
 type ListItemProps = {
   children?: React.ReactNode;
   style?: ViewStyle;
+  onPress?: Function;
 };
 
 export default function ListItem(props: ListItemProps) {
+  function handlePress() {
+    if (props.onPress) {
+      props.onPress();
+    }
+  }
+
   return (
-    <View style={{ ...styles.container, ...props.style }}>
+    <Pressable
+      style={{ ...styles.container, ...props.style }}
+      onPress={handlePress}
+    >
       {props.children}
-    </View>
+    </Pressable>
   );
 }
 

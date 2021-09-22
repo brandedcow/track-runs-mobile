@@ -7,6 +7,7 @@ import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  CurrentRun: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

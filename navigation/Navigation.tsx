@@ -26,7 +26,7 @@ function RootNavigator() {
         options={{ headerShown: false }}
       />
       <RootStack.Screen
-        name="CurrentRunScreen"
+        name="CurrentRun"
         component={CurrentRunScreen}
         options={{ headerShown: false }}
       />

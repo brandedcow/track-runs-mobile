@@ -10,8 +10,12 @@ const RUN_OPTIONS = ['base', 'tempo', 'recovery'];
 export default function TrackTabScreen({
   navigation,
 }: RootTabScreenProps<'TrackTab'>) {
+  function handleOptionPress() {
+    navigation.navigate('CurrentRun');
+  }
+
   const renderItem = ({ item }: { item: String }) => (
-    <ListItem style={styles.listOption}>
+    <ListItem style={styles.listOption} onPress={handleOptionPress}>
       <Text style={styles.listOptionText}>{item}</Text>
     </ListItem>
   );
