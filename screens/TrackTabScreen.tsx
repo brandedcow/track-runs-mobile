@@ -2,11 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
+import { RootTabScreenProps } from '../navigation/types';
 import ListItem from '../components/ListItem';
 
 const RUN_OPTIONS = ['base', 'tempo', 'recovery'];
 
-export default function TrackTabScreen() {
+export default function TrackTabScreen({
+  navigation,
+}: RootTabScreenProps<'TrackTab'>) {
   const renderItem = ({ item }: { item: String }) => (
     <ListItem style={styles.listOption}>
       <Text style={styles.listOptionText}>{item}</Text>

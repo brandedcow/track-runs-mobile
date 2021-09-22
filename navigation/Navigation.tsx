@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 import TrackTabScreen from '../screens/TrackTabScreen';
 import RunsTabScreen from '../screens/RunsTabScreen';
+import CurrentRunScreen from '../screens/CurrentRunScreen';
 
 export default function Navigation() {
   return (
@@ -14,17 +15,22 @@ export default function Navigation() {
   );
 }
 
-const Stack = createStackNavigator();
+const RootStack = createStackNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Root">
-      <Stack.Screen
+    <RootStack.Navigator initialRouteName="Root">
+      <RootStack.Screen
         name="Root"
         component={TopTabNavigator}
         options={{ headerShown: false }}
       />
-    </Stack.Navigator>
+      <RootStack.Screen
+        name="CurrentRunScreen"
+        component={CurrentRunScreen}
+        options={{ headerShown: false }}
+      />
+    </RootStack.Navigator>
   );
 }
 
