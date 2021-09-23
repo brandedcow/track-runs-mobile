@@ -4,9 +4,13 @@ import { GeoPosition } from 'react-native-geolocation-service';
 import globalState, { GlobalStateProps } from './global';
 
 const wrapState = (s: State<GlobalStateProps>) => ({
-  get: () => s.currentRun.value,
+  getRun: () => s.currentRun.value,
   addPoint: (point: GeoPosition) => s.currentRun.merge([point]),
-  clear: () => s.currentRun.set([]),
+  clearRun: () => s.currentRun.set([]),
+
+  getPauses: () => s.currentPauses.value,
+  addPause: (interval: Array<Number>) => s.currentPauses.merge([interval]),
+  clearPauses: () => s.currentPauses.set([]),
 });
 
 const useRunState = () => wrapState(useState(globalState));

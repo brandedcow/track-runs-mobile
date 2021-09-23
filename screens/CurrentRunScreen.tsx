@@ -8,11 +8,13 @@ import useRunState from '../state/useRunState';
 export default function CurrentRunScreen() {
   const isTracking = useState(false);
   const isPaused = useState(false);
+  const pauseInterval = useState<Array<Number>>([]);
   const lastLat = useState(-1);
   const lastLong = useState(-1);
 
   const runState = useRunState();
 
+  // Check if the position is the same as the last, sometimes duplicates occur
   function handlePositionChange(point: GeoPosition) {
     const { coords } = point;
     const { latitude, longitude } = coords;
@@ -27,32 +29,35 @@ export default function CurrentRunScreen() {
 
   function handleStart() {
     isTracking.set(true);
-    Geolocation.watchPosition(
-      isPaused.get() ? () => {} : handlePositionChange,
-      err => console.log(err),
-      {
-        accuracy: {
-          android: 'high',
-        },
-        distanceFilter: 20,
-        interval: 1000,
+    Geolocation.watchPosition(handlePositionChange, err => console.log(err), {
+      accuracy: {
+        android: 'high',
       },
-    );
+      distanceFilter: 20,
+      interval: 1000,
+    });
   }
 
   function handlePause() {
     isPaused.set(true);
+    pauseInterval.merge([Date.now()]);
   }
 
   function handleResume() {
     isPaused.set(false);
+    pauseInterval.merge([Date.now()]);
+    if (pauseInterval.get().length === 2) {
+      runState.addPause(pauseInterval.get());
+    }
+    pauseInterval.set([]);
   }
 
   function handleStop() {
     Geolocation.stopObserving();
     isTracking.set(false);
     isPaused.set(false);
-    runState.clear();
+    runState.clearRun();
+    runState.clearPauses();
   }
 
   return (
