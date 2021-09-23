@@ -11,7 +11,6 @@ const App = () => {
     )
       .then(granted => {
         if (!granted) {
-          console.log('not granted, request');
           PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
@@ -25,13 +24,11 @@ const App = () => {
       .catch(err => console.log('error', err));
   }, []);
 
-  const permissionsGranted = PermissionsAndroid.check(
-    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  )
-    .then(granted => granted)
-    .catch(err => err);
-
-  console.log('permissions', permissionsGranted);
+  // const permissionsGranted = PermissionsAndroid.check(
+  //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  // )
+  //   .then(granted => granted)
+  //   .catch(err => err);
 
   return (
     <SafeAreaProvider>
